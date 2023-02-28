@@ -22,16 +22,6 @@ psycopg2 = "^2.9.5"
 [tool.poetry.group.dev.dependencies]
 django-debug-toolbar = "^3.8.1"
 
-[tool.poe.tasks]
-r = { cmd = "python manage.py runserver --nostatic", help = "Start dev serve" }
-u = { cmd = "python manage.py makesuperuser", help = "Create a new superuser using environment varibales, look in your .env.template file" }
-m = { cmd = "python manage.py migrate", help = "Apply migrations" }
-mk = { cmd = "python manage.py makemigrations", help = "Make migrations" }
-rd = { cmd = "python manage.py reset_db --noinput", help = "Delete and recreate your database" }
-t = { cmd = "tailwindcss -i {{ project_name }}/static/css/input.css -o {{ project_name }}/static/css/output.css --watch", help = "Compile tailwind in watch mode" }
-rm = { cmd = "cuzzy rm-migrations {{ project_name }}", help = "Delete all migrations files" }
-RD = ["rd", "rm", "mk", "m"] # Reset your database, delete all migrations files, make news migrations for all apps, apply all migrations
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
