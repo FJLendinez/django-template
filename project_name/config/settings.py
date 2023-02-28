@@ -86,9 +86,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES = {
-    "default": env.db("DATABASE_URL", default="postgres:///{{ project_name }}")
-}
+if env.str("DATABASE_URL"):
+    DATABASES = {
+        "default": env.db("DATABASE_URL", default="postgres:///{{ project_name }}")
+    }
+else:
+    DATABASES = {
+        "default": {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -120,7 +129,8 @@ EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
 
-CACHES = {"default": env.cache("REDIS_URL")}
+if env.str("REDIS_URL", default=None):
+    CACHES = {"default": env.cache("REDIS_URL")}
 
 if DJANGO_ENV == "production":
     # Security
