@@ -30,18 +30,12 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    "django_extensions",
     "django_htmx",
 ]
 
 if DEBUG:
     THIRD_PARTY_APPS += [
-        "django_browser_reload",
         "debug_toolbar",
-        "django_fastdev",
     ]
 
 LOCAL_APPS = ["{{ project_name }}.core", "{{ project_name }}.users"]
@@ -63,10 +57,9 @@ MIDDLEWARE = [
 if DEBUG:
     MIDDLEWARE += [
         "debug_toolbar.middleware.DebugToolbarMiddleware",
-        "django_browser_reload.middleware.BrowserReloadMiddleware",
     ]
 
-INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
+INTERNAL_IPS = ["127.0.0.1"]
 
 DEBUG_TOOLBAR_CONFIG = {
     "DISABLE_PANELS": ["debug_toolbar.panels.redirects.RedirectsPanel"],
@@ -116,38 +109,20 @@ ADMIN_URL = env("ADMIN_URL", default="admin/")
 AUTH_USER_MODEL = "users.User"
 
 AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend"
 ]
 
 LOGIN_URL = "account_login"
 
 SITE_ID = 1
 
-ACCOUNT_FORMS = {"signup": "{{ project_name }}.users.forms.UserSignupForm"}
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "optional"
-
 EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
 
-SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
-SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
+CACHES = {"default": env.cache("REDIS_URL")}
 
 if DJANGO_ENV == "production":
-    import sentry_sdk
-    from sentry_sdk.integrations.django import DjangoIntegration
-
-    # Load cache from CACHE_URL or REDIS_URL
-    if "CACHE_URL" in os.environ:
-        CACHES = {"default": env.cache("CACHE_URL")}
-    elif "REDIS_URL" in os.environ:
-        CACHES = {"default": env.cache("REDIS_URL")}
-
     # Security
     CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS")
     CSRF_COOKIE_SECURE = True
@@ -182,22 +157,3 @@ if DJANGO_ENV == "production":
         "SECURE_HSTS_INCLUDE_SUBDOMAINS", default=False
     )
 
-    # email
-    EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
-    ANYMAIL = {
-        "AMAZON_SES_CLIENT_PARAMS": {
-            "aws_access_key_id": env("DJANGO_AWS_ACCESS_KEY_ID"),
-            "aws_secret_access_key": env("DJANGO_AWS_SECRET_ACCESS_KEY"),
-            "region_name": env("DJANGO_AWS_S3_REGION_NAME"),
-        }
-    }
-
-    # sentry
-    sentry_sdk.init(
-        dsn=env("SENTRY_DSN"),
-        integrations=[DjangoIntegration()],
-        environment=env("SENTRY_ENVIRONMENT", default="production"),
-        traces_sample_rate=env.float("SENTRY_TRACES_SAMPLE_RATE", default=0.0),
-        auto_session_tracking=False,
-        release="1.0.0",
-    )
