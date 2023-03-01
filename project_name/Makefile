@@ -9,5 +9,5 @@ run_prod:
 .PHONY: run_prod
 
 cssdev:
-	@npx tailwindcss -o ./static/tailwind.css --minify -w
+	@npx tailwindcss -o ./apps/static/tailwind.css --minify -w
 .PHONY: cssdev
