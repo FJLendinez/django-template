@@ -4,7 +4,7 @@ from pathlib import Path
 import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-APPS_DIR = BASE_DIR / "{{ project_name }}"
+APPS_DIR = BASE_DIR / "apps"
 
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / ".env")
@@ -38,7 +38,7 @@ if DEBUG:
         "debug_toolbar",
     ]
 
-LOCAL_APPS = ["{{ project_name }}.core", "{{ project_name }}.users"]
+LOCAL_APPS = ["apps.core", "apps.users"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
