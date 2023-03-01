@@ -1,7 +1,7 @@
 NODE_ENV=production
 
 run_dev:
-	@poetry run gunicorn --reload --reload-extra-file templates/* main.wsgi
+	@poetry run gunicorn --reload main.wsgi
 .PHONY: run_dev
 
 run_schedule:
