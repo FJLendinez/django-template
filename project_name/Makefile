@@ -1,15 +1,11 @@
 NODE_ENV=production
 
 run_dev:
-	@poetry run gunicorn --reload main.wsgi
-.PHONY: run_dev
-
-run_schedule:
-	@poetry run python manage.py runschedule
+	@poetry run gunicorn --reload config.wsgi
 .PHONY: run_dev
 
 run_prod:
-	@poetry run gunicorn main.wsgi
+	@poetry run gunicorn config.wsgi
 .PHONY: run_prod
 
 cssdev:
