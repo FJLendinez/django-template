@@ -1,0 +1,14 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static "tailwind.css" %}">
+    <script src="{% static 'htmx.min.js' %}" defer></script>
+</head>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-gray-100">
+<div hx-get="/components/timer/" hx-trigger="load, every 1s"></div>
+</body>
+</html>
