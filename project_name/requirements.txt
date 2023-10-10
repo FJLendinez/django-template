@@ -1,0 +1,8 @@
+celery==5.3.4
+Django==4.2.5
+django-environ==0.11.2
+gunicorn==21.2.0
+psycopg2==2.9.8
+pytailwindcss==0.2.0
+whitenoise==6.5.0
+inotify==0.2.10
