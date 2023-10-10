@@ -1,25 +1,15 @@
-FROM python:3.11.0-bullseye as requirements-stage
-
-WORKDIR /tmp
-
-RUN pip install poetry
-
-COPY ./pyproject.toml ./poetry.lock* /tmp/
-
-RUN poetry export -f requirements.txt --output requirements.txt --without-hashes --with dev
-
-FROM python:3.11.0-alpine3.16
+FROM python:3.11-slim-buster
 
 WORKDIR /code
 
-RUN apk update \
-    && apk add --virtual build-deps build-base \
-    && apk add postgresql-client \
-    && apk add --no-cache libffi-dev libpq-dev \
+RUN apt-get update \
+    && apt-get install -y build-essential libpq-dev \
+    && apt-get install -y libxml2-dev libxslt1-dev libz-dev \
+    && apt-get install -y inotify-tools \
     && pip install --upgrade pip \
     && python --version
 
-COPY --from=requirements-stage /tmp/requirements.txt /code/requirements.txt
+COPY requirements.txt /code/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
@@ -27,4 +17,4 @@ COPY . /code
 
 EXPOSE 80
 
-CMD ["sh", "/code/docker/entrypoint.sh"]
+ENTRYPOINT ["sh", "/code/docker/entrypoint.sh"]
