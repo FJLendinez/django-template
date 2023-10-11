@@ -1,4 +1,4 @@
-FROM python:3.11-slim-buster
+FROM python:{{python_version}}-slim-buster
 
 WORKDIR /code
 
