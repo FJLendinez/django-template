@@ -1,7 +1,8 @@
 from .environ import env
 from .base import DEBUG
+
 # Security
-CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS") or ['*']
+CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS") or ["*"]
 
 if not DEBUG:
     CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS")

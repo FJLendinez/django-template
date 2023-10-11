@@ -9,11 +9,10 @@ max_requests = 1000
 max_requests_jitter = 50
 
 reload = True
-reload_engine = 'inotify'
-reload_extra_files = ['/code/apps/', '/code/templates/']
+reload_engine = "inotify"
+reload_extra_files = ["/code/apps/", "/code/templates/"]
 
 log_file = "-"
 
 bind = "0.0.0.0:9741"
 workers = 1
-

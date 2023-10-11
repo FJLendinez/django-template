@@ -16,13 +16,13 @@ rundev:
 .PHONY: rundev
 
 exec:
-	@docker exec -it app python manage.py shell
+	@docker exec -it {{project_name}}_app python manage.py shell
 .PHONY: exec
 
 bash:
-	@docker exec -it app bash
+	@docker exec -it {{project_name}}_app bash
 .PHONY: bash
 
 cssdev:
-	@docker exec -it app tailwindcss -o ./static/tailwind.css --minify -w
+	@docker exec -it {{project_name}}_app tailwindcss -o ./static/tailwind.css --minify -w
 .PHONY: cssdev
