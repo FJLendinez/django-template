@@ -10,7 +10,7 @@
 Usaremos el comando `startproject` de django como utilidad para generar nuestro proyecto. Se puede generar con cualquier django-admin de cualquier entorno.
 
 ```
-django-admin startproject --template https://github.com/FJLendinez/django-template/archive/refs/heads/main.zip -e py,yml,toml <project_name> .
+django-admin startproject --template https://github.com/FJLendinez/django-template/archive/refs/heads/main.zip -e py,yml,toml -n Makefile <project_name> .
 ```
 
 Si la url no funciona (por permisos o whatever), descarga el zip desde github y haz
@@ -127,6 +127,10 @@ Sólo faltaría configurar los detalles de Celery
 ### Celery con colas de prioridad
 
 Este template te da un sistema de prioridades de colas para que puedas ejecutar antes lo que más apremie.
+
+### Email configurado
+
+El email está configurado por defecto para desarrollo, se puede configurar con variables de entorno y hay un pequeño test de ejemplo.
 
 __________
 

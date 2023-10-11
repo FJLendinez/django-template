@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from apps.core.views import index, timer
+from apps.core.views import index, timer, send_test_email
 
 urlpatterns = [
-    path('', index),
-    path('components/timer/', timer),
-    path('admin/', admin.site.urls),
+    path("", index),
+    path("components/timer/", timer),
+    path("send-email/", send_test_email),
+    path("admin/", admin.site.urls),
 ]

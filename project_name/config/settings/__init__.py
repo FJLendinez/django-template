@@ -9,5 +9,4 @@ from .auth import *
 from .storages import *
 from .logging import *
 from .security import *
-
-
+from .mail import *
