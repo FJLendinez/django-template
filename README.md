@@ -13,7 +13,7 @@ Usaremos el comando `startproject` de django como utilidad para generar nuestro 
 django-admin startproject --template https://github.com/FJLendinez/django-template/archive/refs/heads/main.zip -e py,yml,toml <project_name> .
 ```
 
-Si la url no funciona (por permisos o whatever), descarga el zip desde gitlab y haz
+Si la url no funciona (por permisos o whatever), descarga el zip desde github y haz
 
 ```
 django-admin startproject --template ~/Descargas/django-template-main.zip -e py,yml,toml <project_name> .
