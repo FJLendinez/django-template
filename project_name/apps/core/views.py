@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.core.mail import EmailMultiAlternatives
-
+from django.core.cache import cache
 
 # Create your views here.
 def index(request):
@@ -21,3 +21,10 @@ def send_test_email(request):
     msg.attach_alternative(html_content, "text/html")
     msg.send()
     return HttpResponse("<strong>Mail sent</strong>")
+
+def store_in_cache(request):
+    value = cache.get('from-cache')
+    if not value:
+        cache.set('from-cache', "Yes", timeout=3)
+        value = "No"
+    return HttpResponse(value)

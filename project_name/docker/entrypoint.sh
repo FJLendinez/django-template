@@ -34,7 +34,7 @@ case $1 in
                   echo "Running $HIGHPRIO_WORKER_NUM_PROCESSES high priority workers" &&
                   if [ $HIGHPRIO_WORKER_NUM_PROCESSES -gt 0 ]; then
                     HIGHPRIO_CONCURRENCY="--concurrency=${HIGHPRIO_WORKER_NUM_PROCESSES}"
-                    celery -A main worker -n highprio -Q highprio -l info ${HIGHPRIO_CONCURRENCY}
+                    celery -A config worker -n {{project_name}}_highprio -Q highprio -l info ${HIGHPRIO_CONCURRENCY}
                   else
                     echo "There are no workers to set"
                   fi;;
@@ -43,7 +43,7 @@ case $1 in
                   echo "Running $MEDPRIO_WORKER_NUM_PROCESSES medium priority workers"
                   if [ $MEDPRIO_WORKER_NUM_PROCESSES -gt 0 ]; then
                     MEDPRIO_CONCURRENCY="--concurrency=${MEDPRIO_WORKER_NUM_PROCESSES}"
-                    celery -A main worker -n medprio -Q highprio,medprio,celery -B -l info ${MEDPRIO_CONCURRENCY}
+                    celery -A config worker -n {{project_name}}_medprio -Q highprio,medprio,celery -B -l info ${MEDPRIO_CONCURRENCY}
                   else
                     echo "There are no workers to set"
                   fi;;
@@ -52,7 +52,7 @@ case $1 in
                   echo "Running $LOWPRIO_WORKER_NUM_PROCESSES low priority workers"
                   if [ $LOWPRIO_WORKER_NUM_PROCESSES -gt 0 ]; then
                     LOWPRIO_CONCURRENCY="--concurrency=${LOWPRIO_WORKER_NUM_PROCESSES}"
-                    celery -A main worker -n lowprio -Q highprio,medprio,lowprio,celery -l info ${LOWPRIO_CONCURRENCY}
+                    celery -A config worker -n {{project_name}}_lowprio -Q highprio,medprio,lowprio,celery -l info ${LOWPRIO_CONCURRENCY}
                   else
                     echo "There are no workers to set"
                   fi;;

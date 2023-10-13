@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from apps.core.views import index, timer, send_test_email
+from apps.core.views import index, timer, send_test_email, store_in_cache
 
 urlpatterns = [
     path("", index),
     path("components/timer/", timer),
     path("send-email/", send_test_email),
+    path("store-cache/", store_in_cache)
     path("admin/", admin.site.urls),
 ]

@@ -13,5 +13,7 @@
 <div hx-target="this" hx-swap="outerHTML">
 <button hx-get="/send-email/">Enviar correo</button>
 </div>
+<div>
+    ¿Desde cache? <span hx-get="/store-cache/" hx-trigger="every 1s" hx-swap="innerHTML"></span>
 </body>
 </html>

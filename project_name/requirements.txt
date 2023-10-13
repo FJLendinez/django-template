@@ -6,3 +6,4 @@ psycopg2==2.9.8
 pytailwindcss==0.2.0
 whitenoise==6.5.0
 inotify==0.2.10
+redis==5.0.1
