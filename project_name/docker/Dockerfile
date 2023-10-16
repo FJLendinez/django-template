@@ -9,6 +9,16 @@ RUN apt-get update \
     && pip install --upgrade pip \
     && python --version
 
+# Set user and group
+ARG user=appuser
+ARG uid=1000
+ARG gid=1000
+RUN groupadd -g ${gid} ${user}
+RUN useradd -u ${uid} -g ${user} -s /bin/sh -m ${user} # <--- the '-m' create a user home directory
+
+# Switch to user
+USER ${user}
+
 COPY requirements.txt /code/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt

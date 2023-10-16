@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path
 
 from apps.core.views import index, timer, send_test_email, store_in_cache
+from apps.users.views import login_view
 
 urlpatterns = [
     path("", index),
+    path("/login/", login_view),
     path("components/timer/", timer),
     path("send-email/", send_test_email),
     path("store-cache/", store_in_cache)

@@ -1,5 +1,5 @@
 build:
-	docker build -t `basename "${PWD}"`  -f docker/Dockerfile .
+	docker build -t `basename "${PWD}"` --build-arg uid=`id -u` --build-arg gid=`id -g` --build-arg user=`whoami` -f docker/Dockerfile .
 .PHONY: build
 
 run:
