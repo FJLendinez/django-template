@@ -21,9 +21,9 @@ from apps.users.views import login_view
 
 urlpatterns = [
     path("", index),
-    path("/login/", login_view),
+    path("login/", login_view),
     path("components/timer/", timer),
     path("send-email/", send_test_email),
-    path("store-cache/", store_in_cache)
+    path("store-cache/", store_in_cache),
     path("admin/", admin.site.urls),
 ]

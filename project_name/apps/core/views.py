@@ -1,18 +1,19 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.core.mail import EmailMultiAlternatives
 from django.core.cache import cache
 
-# Create your views here.
+@login_required()
 def index(request):
     return render(request, "pages/index.html", {})
 
-
+@login_required()
 def timer(request):
     return render(request, "components/timer.html", {"time": timezone.now()})
 
-
+@login_required()
 def send_test_email(request):
     subject, from_email, to = "hello", "from@example.com", "to@example.com"
     text_content = "This is an important message."
@@ -22,6 +23,7 @@ def send_test_email(request):
     msg.send()
     return HttpResponse("<strong>Mail sent</strong>")
 
+@login_required()
 def store_in_cache(request):
     value = cache.get('from-cache')
     if not value:

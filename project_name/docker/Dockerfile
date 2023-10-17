@@ -16,14 +16,15 @@ ARG gid=1000
 RUN groupadd -g ${gid} ${user}
 RUN useradd -u ${uid} -g ${user} -s /bin/sh -m ${user} # <--- the '-m' create a user home directory
 
-# Switch to user
-USER ${user}
-
-COPY requirements.txt /code/requirements.txt
+COPY --chown=${user}:${user} requirements.txt /code/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
+# Switch to user
+USER ${user}
+
 COPY . /code
+
 
 EXPOSE 80
 
