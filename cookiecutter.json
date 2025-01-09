@@ -1,0 +1,13 @@
+{
+  "project_name": "test-project",
+  "project_verbose_name": "Test Project",
+  "project_domain": "myapp.com",
+  "app_port": "8000",
+
+  "_copy_without_render": [
+    ".env",
+    "templates/*",
+    "components/*",
+    "static/*"
+  ]
+}

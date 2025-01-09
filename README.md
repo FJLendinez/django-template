@@ -1,22 +1,28 @@
-# Django Template
+# Plantilla de django fullstack
 
-1. [Instalación](#instalacion)
+1. [Instalación](#Instalación)
 2. [Desarrollo](#desarrollo)
 3. [Características](#caracteristicas)
 4. [Operaciones con Make](#make)
 
-## Instalación<a name="instalacion"></a>
+## Instalación<a name="instalación"></a>
 
-Usaremos el comando `startproject` de django como utilidad para generar nuestro proyecto. Se puede generar con cualquier django-admin de cualquier entorno.
+[Cambios recientes] * Ahora usamos cookiecutter para poder añadir más variables de entorno y tener más control sobre la plantilla.
+
+Para instalar usaremos cookiecutter. 
+```
+pip install cookiecutter
+```
+
+Una vez instalado procedemos a crear el proyecto respondiendo a las preguntas que nos haga
+```
+cookiecutter git@gitlab.com:kas-factory/templates/django-fullstack-seed.git
+```
+
+Si la url no funciona (por permisos o whatever), descarga el zip desde gitlab y haz
 
 ```
-django-admin startproject --template https://github.com/FJLendinez/django-template/archive/refs/heads/main.zip -e py,yml,toml -n Makefile <project_name> .
-```
-
-Si la url no funciona (por permisos o whatever), descarga el zip desde github y haz
-
-```
-django-admin startproject --template ~/Descargas/django-template-main.zip -e py,yml,toml <project_name> .
+cookiecutter ./path/to/django-fullstack-seed-master.zip
 ```
 
 Una vez hecho, iremos a la carpeta del proyecto
@@ -31,24 +37,32 @@ y aquí construiremos la imagen para empezar a trabajar
 make build
 ```
 
-Mientras no se añadan dependencias ni se toque la forma de construir/desplegar, esta imagen será suficiente para desarrollar.
+Mientras no se añadan dependencias ni se toque la forma de construir/desplegar, esta **imagen será suficiente para desarrollar**.
 
 __________
 ## Desarrollo (Básico) <a name="desarrollo"></a>
 
-Copia el `.env` de ejemplo:
-
-```
-cp .env.example .env
-```
-
-y ejecuta:
+Ejecuta:
 
 ```
 make rundev
 ```
 
 Esto levantará las dependencias y el poyecto con gunicorn de tal forma que podrás trabajar de una manera cercana a producción pero con hot reloading
+
+### Usar comando de django
+
+Ejecuta:
+
+```
+make bash
+```
+
+Con esto accederás a la bash del contenedor en marcha (si no está en marcha, levántalo). Una vez dentro podrás usar los comandos como necesites
+
+```
+python manage.py <comando>
+```
 
 ### Cómo añadir una aplicación
 Debido a que el orden de este proyecto no es el orden por defecto de django, tenemos que hacer unos pequeños cambios.
@@ -68,6 +82,13 @@ Añade `name = 'apps.facturas'` en la configuración de la app.
 #### 4. Instálala en las settings
 
 En `config/settings/apps.py`, en `INSTALLED_APPS`, añade `apps.facturas`
+__________
+## Desarrollo (con Pycharm) <a name="pycharm"></a>
+
+### 1. Abre el proyecto con pycharm
+
+### 2. Configura el intérprete remoto
+
 __________
 
 ## Características<a name="caracteristicas"></a>
@@ -100,9 +121,13 @@ Usando whitenoise la app puede servir estáticos de forma eficiente sin necesida
 
 La app `core` sirve para poder centralizar ahí todas las funcionalidades/utilidades/modelos/vistas que tengan un uso transversal a toda el proyecto.
 
+!Nuevo: Se ha añadido en core también templatetags útiles para las plantillas
+
 ### App "users" directamente editable
 
 Ya tenemos una app `users` que nos permite adaptar el usuario a nuestras necesidades sin tener que generar "modelos sidecar".
+
+!Nuevo: Se han añadido las vistas de cambiar usuario y cambiar contraseña así como sus formularios y la función de logout
 
 ### Gunicorn configurado
 
@@ -131,6 +156,33 @@ Este template te da un sistema de prioridades de colas para que puedas ejecutar 
 ### Email configurado
 
 El email está configurado por defecto para desarrollo, se puede configurar con variables de entorno y hay un pequeño test de ejemplo.
+
+### !Nuevo: Gestión de errores
+
+Los errores se enviarán al correo una vez se añadan los `ADMINS` en `settings/base.py`
+
+### !Nuevo: Añadidos paquetes de utilidades
+
+Se han añadido:
+*  Django extensions: Te permite tener una consola interactiva más útil entre otras tantas utilidades
+*  Django widget tweaks: Te permite modificar las clases y atributos a los widgets desde la plantilla (ejemplo en `components/field.html`)
+*  Django filter: Es un must para generar filtros tanto en Django como DRF
+
+### !Nuevo: Plantillas de ejemplo
+
+* En `templates/base.html` podrás encontrar un ejemplo de cómo usar la plantilla, esta plantilla está pensada para poderse usar con HTMX teniendo #page como objetivo para cambiar sólo el contenido necesario. Esta plantilla de ejemplo hace uso de **dos componentes de ejemplo**, `top-bar` y `messages`. Esta plantilla lleva configurado el `token CSRF` por lo tanto no hará falta usarlo en formularios que usen HTMX.
+
+* En `templates/components/top-bar.html` encontrarás un ejemplo de cómo tener una plantilla usando tailwind (copypaste de Flowbite) teniendo un dropdown y marcando el elemento activo por ruta.
+
+* En `templates/components/messages.html` tendrás un ejemplo de mensaje de alerta que desaparece automáticamente y cuyo color se adapta al mensaje concreto. Esto hace uso del framework de mensajes de django y está integrado en `base.html`
+
+* En `templates/components/field.html` podrás ver un ejemplo de campo reutilizable a través de los formularios de django con manejo de errores y representación de si es requerido o no. Su uso sería a través de un `include` desde field añadiendo como parámetro `field` el campo del formulario en cuestión.
+
+### !Nuevo: django-components para gestionar componentes + ejemplo
+
+Se ha tomado la decisión de añadir django-components al proyecto porque aporta una mayor organización y control sobre el código y la interfaz.
+
+* _Timer_ se ha pasado a componente con django-component para tener un ejemplo de uso 
 
 __________
 
