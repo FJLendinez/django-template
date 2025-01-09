@@ -1,0 +1,27 @@
+{% load widget_tweaks %}
+
+<div class="text-sm font-medium text-gray-900">{{ field.label }} {% if field.field.required %}*{% endif %}</div>
+
+{% with WIDGET_CLASSES='input bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %}
+    {% if field.errors %}
+        {% if field.widget_type == 'date' %}
+            {% render_field field|attr:"type:date"|add_class:WIDGET_CLASSES|add_class:'border-red-500 focus:ring-red-500 focus:border-red-500' %}
+        {% elif field.widget_type == 'datetime' %}
+            {% render_field field|attr:"type:datetime-local"|add_class:WIDGET_CLASSES|add_class:'border-red-500 focus:ring-red-500 focus:border-red-500' %}
+        {% else %}
+            {% render_field field|add_class:WIDGET_CLASSES|add_class:'border-red-500 focus:ring-red-500 focus:border-red-500' %}
+        {% endif %}
+        {% for error in field.errors %}
+            <p class="text-sm text-red-500"> {{ error|escape }}</p>
+        {% endfor %}
+    {% else %}
+        {% if field.widget_type == 'date' %}
+            {% render_field field|attr:"type:date"|add_class:WIDGET_CLASSES|add_class:'border-gray-300' %}
+        {% elif field.widget_type == 'datetime' %}
+            {% render_field field|attr:"type:datetime-local"|add_class:WIDGET_CLASSES|add_class:'border-gray-300' %}
+        {% else %}
+            {% render_field field|add_class:WIDGET_CLASSES|add_class:'border-gray-300' %}
+        {% endif %}
+    {% endif %}
+{% endwith %}
+

@@ -1,0 +1,46 @@
+services:
+  {{cookiecutter.project_name}}_app:
+    image: {{cookiecutter.project_name}}:latest
+    container_name: {{cookiecutter.project_name}}_app
+    command:
+      - "app"
+    ports:
+      - "{{cookiecutter.app_port}}:{{cookiecutter.app_port}}"
+    env_file:
+      - '../.env'
+    volumes:
+      - ../:/code
+      - ../{{cookiecutter.project_name}}_data:/data/
+  {{cookiecutter.project_name}}_highprio_workers:
+    image: {{cookiecutter.project_name}}:latest
+    container_name: {{cookiecutter.project_name}}_highprio_workers
+    command:
+      -  workers
+      -  high_priority
+    env_file:
+      - '../.env'
+    volumes:
+      - ../:/code
+      - ../{{cookiecutter.project_name}}_data:/data/
+  {{cookiecutter.project_name}}_medprio_workers:
+    image: {{cookiecutter.project_name}}:latest
+    container_name: {{cookiecutter.project_name}}_medprio_workers
+    command:
+      -  workers
+      -  medium_priority
+    env_file:
+      - '../.env'
+    volumes:
+      - ../:/code
+      - ../{{cookiecutter.project_name}}_exchange_data:/data/
+  {{cookiecutter.project_name}}_lowprio_workers:
+    image: {{cookiecutter.project_name}}:latest
+    container_name: {{cookiecutter.project_name}}_lowprio_workers
+    command:
+      -  workers
+      -  low_priority
+    env_file:
+      - '../.env'
+    volumes:
+      - ../:/code
+      - ../{{cookiecutter.project_name}}_exchange_data:/data/

@@ -1,0 +1,70 @@
+{% load static %}
+
+{% if not request.htmx %}
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <title>Mi nueva app</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+
+        <script src="{% static 'htmx.min.js' %}"></script>
+
+        <link rel="stylesheet" href="{% static 'tailwind.css' %}"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet"/>
+
+        <style>
+            .htmx-indicator {
+                display: none;
+            }
+
+            .htmx-request .htmx-indicator {
+                display: inline;
+            }
+
+            .htmx-request.htmx-indicator {
+                display: inline;
+            }
+        </style>
+    </head>
+    <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+    {% include 'components/top-bar.html' %}
+    <div id="page" class="pt-[73px]">
+{% endif %}
+
+<!-- Only rendered in HTMX -->
+{% if messages %}
+    {% include 'components/messages.html' %}
+{% endif %}
+{% block content %}
+{% endblock %}
+<!-- Only rendered in HTMX -->
+
+{% if not request.htmx %}
+
+    <!-- Main modal -->
+    <div id="default-modal" tabindex="-1" aria-hidden="true"
+         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div id="modal-content" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <!-- Main modal -->
+    <div id="default-modal" tabindex="-1" aria-hidden="true"
+         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div id="modal-content" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+
+            </div>
+        </div>
+    </div>
+
+    </body>
+    </html>
+{% endif %}
