@@ -5,12 +5,13 @@
     <html lang="es">
     <head>
         <title>Mi nueva app</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 
         <script src="{% static 'htmx.min.js' %}"></script>
 
         <link rel="stylesheet" href="{% static 'tailwind.css' %}"/>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet"/>
+        
+        <script id="echarts" src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+        <script id="alpinejs" defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
         <style>
             .htmx-indicator {
@@ -26,10 +27,15 @@
             }
         </style>
     </head>
-    <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    <body>
 
-    {% include 'components/top-bar.html' %}
-    <div id="page" class="pt-[73px]">
+        <div id="app" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="">
+            {% if request.user.is_authenticated %}
+                <c-header></c-header>
+        
+                <c-toast hx-trigger="load, every 10s" hx-get="{% url 'get_alerts' %}" hx-swap="beforeend">
+                </c-toast>
+            {% endif %}
 {% endif %}
 
 <!-- Only rendered in HTMX -->
@@ -54,17 +60,6 @@
     </div>
 
     </div>
-    <!-- Main modal -->
-    <div id="default-modal" tabindex="-1" aria-hidden="true"
-         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-2xl max-h-full">
-            <!-- Modal content -->
-            <div id="modal-content" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-
-            </div>
-        </div>
-    </div>
-
     </body>
     </html>
 {% endif %}

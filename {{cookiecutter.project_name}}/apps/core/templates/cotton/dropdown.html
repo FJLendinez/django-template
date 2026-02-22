@@ -1,0 +1,16 @@
+<div class="dropdown {{ drop_position }} {{ class }}">
+    <div tabindex="0" role="button" class="">
+        {% if not innerbutton %}
+            {{ name }}
+        {% else %}
+            {{ innerbutton }}
+        {% endif %}
+    </div>
+    <div
+            tabindex="0"
+            class="dropdown-content card card-sm bg-base-100 z-1 w-64 shadow-md">
+        <div class="">
+{{ slot }}
+        </div>
+    </div>
+</div>

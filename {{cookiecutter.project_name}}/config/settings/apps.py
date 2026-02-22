@@ -5,7 +5,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_components",
+    "django_cotton",
     'django_extensions',
     'django_filters',
     "django_htmx",

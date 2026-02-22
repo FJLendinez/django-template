@@ -6,6 +6,7 @@
 
   "_copy_without_render": [
     ".env",
+    "apps/*/templates/*",
     "templates/*",
     "components/*",
     "static/*"

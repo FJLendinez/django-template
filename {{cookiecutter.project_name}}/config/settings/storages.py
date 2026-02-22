@@ -3,7 +3,7 @@
 from .paths import BASE_DIR
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "static", BASE_DIR / "components"]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = "staticfiles"
 STORAGES = {
     "staticfiles": {

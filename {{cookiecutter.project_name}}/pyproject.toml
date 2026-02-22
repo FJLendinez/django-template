@@ -18,6 +18,7 @@ dependencies = [
     "pytailwindcss~=0.2.0",
     "whitenoise~=6.5.0",
     "redis~=5.0.1",
+    "django-cotton>=2.0.1",
 ]
 
 [dependency-groups]

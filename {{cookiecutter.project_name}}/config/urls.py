@@ -16,14 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from apps.core.views import index, send_test_email, store_in_cache
+from apps.core.views import index, get_alerts, send_test_email, store_in_cache
 from apps.users.views import login_view
 
 urlpatterns = [
     path("", index),
     path("", include('apps.users.urls')),
-    path('components/', include('components.urls')),
     path("send-email/", send_test_email),
+    path("get-alerts/", get_alerts, name="get_alerts"),
     path("store-cache/", store_in_cache),
     path("admin/", admin.site.urls),
 ]

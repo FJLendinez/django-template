@@ -1,0 +1,3 @@
+{% for message in messages %}
+    <c-alert :text="message" :timeout="3000" :variant="message.tags"/>
+{% endfor %}

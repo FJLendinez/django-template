@@ -31,15 +31,14 @@ TEMPLATES = [
                 'django.template.loaders.cached.Loader', [
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
-                    'django_components.template_loader.Loader',
                 ]
             )],
             'builtins': [
-                'django_components.templatetags.component_tags',
             ]
         },
     },
 ]
+
 
 ROOT_URLCONF = "config.urls"
 

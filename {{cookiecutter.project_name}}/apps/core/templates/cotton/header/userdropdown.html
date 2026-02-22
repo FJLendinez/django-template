@@ -1,0 +1,19 @@
+<c-dropdown class="mx-4 dropdown-end">
+    <c-slot name="innerbutton">
+        <button class="btn m-1">
+            {{ user.initials }}
+        </button>
+    </c-slot>
+    <ul class="menu rounded-box w-full">
+        <li><a href="{% url 'users:user_settings' %}"
+               class="">Perfil</a></li>
+
+        <li class="">
+            <a href=""
+               class="">Option 1</a></li>
+        <li><a href="{% url 'users:logout' %}"
+               class="">Cerrar
+            sesión</a>
+        </li>
+    </ul>
+</c-dropdown>

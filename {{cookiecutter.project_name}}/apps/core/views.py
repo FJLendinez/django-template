@@ -11,6 +11,11 @@ def index(request):
 
 
 @login_required()
+def get_alerts(request):
+    return render(request, "blocks/alert_messages.html", {})
+
+
+@login_required()
 def send_test_email(request):
     subject, from_email, to = "hello", "from@example.com", "to@example.com"
     text_content = "This is an important message."
@@ -20,10 +25,11 @@ def send_test_email(request):
     msg.send()
     return HttpResponse("<strong>Mail sent</strong>")
 
+
 @login_required()
 def store_in_cache(request):
     value = cache.get('from-cache')
     if not value:
-        cache.set('from-cache', "Yes", timeout=3)
+        cache.set('from-cache', "Yes", timeout=20)
         value = "No"
     return HttpResponse(value)

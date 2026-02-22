@@ -1,11 +1,10 @@
-{% extends 'pages/base.html' %}
+{% extends 'bases/base.html' %}
 
 {% block content %}
-<div hx-get="/components/timer/" hx-trigger="load, every 1s"></div>
 <div hx-target="this" hx-swap="outerHTML">
-<button hx-get="/send-email/">Enviar correo</button>
+<button class="btn btn-primary" hx-get="/send-email/">Enviar correo</button>
 </div>
 <div>
-    ¿Desde cache? <span hx-get="/store-cache/" hx-trigger="every 1s" hx-swap="innerHTML"></span>
+    ¿Desde cache? <span hx-get="/store-cache/" hx-trigger="every 5s" hx-swap="innerHTML"></span>
 </div>
 {% endblock %}

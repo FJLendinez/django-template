@@ -2,6 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from pathlib import Path
 
 
 def main():
@@ -15,6 +16,12 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+
+    from django.core.management.commands.runserver import Command as runserver
+    runserver.default_port = "{{cookiecutter.app_port}}"
+
+    current_path = Path(__file__).parent.resolve()
+    sys.path.append(str(current_path / "apps"))
     execute_from_command_line(sys.argv)
 
 
