@@ -5,9 +5,7 @@
 3. [Características](#caracteristicas)
 4. [Operaciones con Make](#make)
 
-# Instalación<a name="instalación"></a>
-
-* Ahora usamos cookiecutter para poder añadir más variables de entorno y tener más control sobre la plantilla.
+## Instalación<a name="instalación"></a>
 
 Para instalar usaremos cookiecutter. 
 ```
@@ -16,13 +14,13 @@ pip install cookiecutter
 
 Una vez instalado procedemos a crear el proyecto respondiendo a las preguntas que nos haga
 ```
-cookiecutter git@gitlab.com:kas-factory/templates/django-fullstack-seed.git
+cookiecutter https://github.com/FJLendinez/django-template.git
 ```
 
 Si la url no funciona (por permisos o whatever), descarga el zip desde gitlab y haz
 
 ```
-cookiecutter ./path/to/django-fullstack-seed-master.zip
+cookiecutter ./path/to/django-template-master.zip
 ```
 
 Una vez hecho, iremos a la carpeta del proyecto
